@@ -16,7 +16,7 @@ type CourseDetailsParams = {
 export default function CourseDetailsPage() {
   const { id } = useParams<CourseDetailsParams>();
   const dispatch = useAppDispatch();
-  const { isLoading, error, courseDetails } = useAppSelector((state) => state.courseDetails);
+  const { isLoading, error, data: courseDetails } = useAppSelector((state) => state.courseDetails);
   const [currentCourseLS, setCurrentCourseLS] = useLocalStorage<CourseDetails | null>(
     'current-course',
     null,
