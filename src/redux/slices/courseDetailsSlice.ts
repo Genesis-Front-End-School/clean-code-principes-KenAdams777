@@ -1,8 +1,8 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { getToken } from '../../helpers/tokenHandler';
-import { CourseDetails } from '../../models/courseDetailsModel';
-import { apiRouts } from '../../routs/apiRouts';
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
+import { getToken } from "../../helpers/tokenHandler";
+import { CourseDetails } from "../../models/courseDetailsModel";
+import { apiRouts } from "../../routes/apiRouts";
 
 type InitialState = {
   isLoading: boolean;
@@ -17,7 +17,7 @@ const initialState: InitialState = {
 };
 
 export const fetchCourseDetails = createAsyncThunk(
-  'courseDetails/fetchCourseDetails',
+  "courseDetails/fetchCourseDetails",
   async (id: string, { signal }): Promise<CourseDetails> => {
     const { token } = await getToken(apiRouts.GET_TOKEN_URL, signal);
     const response = await axios.get<CourseDetails>(`${apiRouts.GET_COURSES_PREVIEW_URL}/${id}`, {
@@ -28,11 +28,11 @@ export const fetchCourseDetails = createAsyncThunk(
     });
 
     return response.data;
-  }
+  },
 );
 
 const courseDetailsSlice = createSlice({
-  name: 'courses',
+  name: "courses",
   initialState,
   reducers: {
     setCourseDetails: (state, action: PayloadAction<CourseDetails>) => {
@@ -50,12 +50,12 @@ const courseDetailsSlice = createSlice({
       state.courseDetails = action.payload;
     });
     builder.addCase(fetchCourseDetails.rejected, (state, action) => {
-      if (action.error.name === 'AbortError') {
-        console.warn('Abort fetch course details request: ', action.error);
+      if (action.error.name === "AbortError") {
+        console.warn("Abort fetch course details request: ", action.error);
         return;
       }
       state.isLoading = false;
-      state.error = action.error.message || 'Something went wrong. Try again later';
+      state.error = action.error.message || "Something went wrong. Try again later";
     });
   },
 });

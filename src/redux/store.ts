@@ -1,8 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { useDispatch, useSelector, TypedUseSelectorHook } from 'react-redux/es/exports';
-import coursesPreviewReducer from './slices/coursesPreviewSlice';
-import courseDetailsReducer from './slices/courseDetailsSlice';
-import videosProgressReducer from './slices/videosProgressSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import { useDispatch, useSelector, TypedUseSelectorHook } from "react-redux/es/exports";
+import coursesPreviewReducer from "./slices/coursesPreviewSlice";
+import courseDetailsReducer from "./slices/courseDetailsSlice";
+import videosProgressReducer from "./slices/videosProgressSlice";
 
 const store = configureStore({
   reducer: {

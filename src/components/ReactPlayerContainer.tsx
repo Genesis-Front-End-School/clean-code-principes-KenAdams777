@@ -1,7 +1,7 @@
-import OverlayFallback from './OverlayFallback';
-import ReactPlayer, { ReactPlayerProps } from 'react-player';
-import { useEffect, useRef, useState } from 'react';
-import { imageErrorHandler } from '../helpers/imageErroHandler';
+import ReactPlayer, { ReactPlayerProps } from "react-player";
+import { useEffect, useRef, useState } from "react";
+import OverlayFallback from "./OverlayFallback";
+import { imageErrorHandler } from "../helpers/imageErroHandler";
 
 interface IProps extends ReactPlayerProps {
   videoUrl: string;
@@ -17,7 +17,7 @@ export default function ReactPlayerContainer(props: IProps) {
   useEffect(() => {
     if (!videoStartPoint) return;
     if (playerRef.current) {
-      playerRef.current.seekTo(videoStartPoint, 'seconds');
+      playerRef.current.seekTo(videoStartPoint, "seconds");
     }
   }, [videoStartPoint]);
 
@@ -35,7 +35,7 @@ export default function ReactPlayerContainer(props: IProps) {
         pip
         onError={(error) => {
           setFallbackState(true);
-          console.warn('Failure to load video: ', error);
+          console.warn("Failure to load video: ", error);
         }}
         light={
           previewImageUrl ? (
@@ -47,7 +47,7 @@ export default function ReactPlayerContainer(props: IProps) {
         config={{
           file: {
             attributes: {
-              preload: 'none',
+              preload: "none",
             },
           },
         }}

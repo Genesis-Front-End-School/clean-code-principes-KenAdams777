@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface IVideoProgress {
   lessonId: string;
@@ -14,7 +14,7 @@ const initialState: InitialState = {
 };
 
 const videosProgressSlice = createSlice({
-  name: 'videosProgress',
+  name: "videosProgress",
   initialState,
   reducers: {
     setVideosProgressStorage: (state, action: PayloadAction<Record<string, number>>) => {

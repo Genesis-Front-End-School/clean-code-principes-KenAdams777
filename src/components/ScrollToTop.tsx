@@ -1,5 +1,5 @@
-import { ReactNode, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { ReactNode, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 type Props = {
   children: ReactNode;

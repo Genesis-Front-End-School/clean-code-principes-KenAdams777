@@ -1,4 +1,4 @@
-import { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
@@ -9,9 +9,12 @@ type State = {
 };
 
 class ErrorBoundary extends Component<Props, State> {
-  state: State = {
-    hasError: false,
-  };
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      hasError: false,
+    };
+  }
 
   static getDerivedStateFromError(_: Error): State {
     return {
@@ -20,28 +23,34 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    console.error('Uncaught error: ', error, errorInfo);
+    console.error("Uncaught error: ", error, errorInfo);
   }
 
   render() {
-    if (this.state.hasError) {
+    const { hasError } = this.state;
+    const { children } = this.props;
+    if (hasError) {
       return (
         <div className="ErrorBoundary__container">
           <h3 className="ErrorBoundary__title">Sorry... there was an error.</h3>
-          <button className="ErrorBoundary__button" type="button" onClick={() => location.reload()}>
+          <button
+            className="ErrorBoundary__button"
+            type="button"
+            onClick={() => window.location.reload()}
+          >
             Reload the page
           </button>
           <button
             className="ErrorBoundary__button"
             type="button"
-            onClick={() => window.location.replace('/')}
+            onClick={() => window.location.replace("/")}
           >
             Back to home page
           </button>
         </div>
       );
     }
-    return this.props.children;
+    return children;
   }
 }
 

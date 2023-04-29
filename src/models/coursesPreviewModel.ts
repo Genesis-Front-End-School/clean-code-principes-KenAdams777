@@ -32,12 +32,12 @@ export interface CourseVideoPreview {
 }
 
 export enum Status {
-  Launched = 'launched',
+  Launched = "launched",
 }
 
 export enum Tag {
-  Communication = 'communication',
-  LearningAbility = 'learning ability',
-  Productivity = 'productivity',
-  Psychology = 'psychology',
+  Communication = "communication",
+  LearningAbility = "learning ability",
+  Productivity = "productivity",
+  Psychology = "psychology",
 }

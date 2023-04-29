@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 type Props = {
   totalCourses: number;
@@ -11,7 +11,7 @@ export default function Pagination(props: Props) {
   const { totalCourses, coursesPerPage, currentPage, setCurrentPage } = props;
   const pages: number[] = [];
 
-  for (let i = 1; i <= Math.ceil(totalCourses / coursesPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(totalCourses / coursesPerPage); i += 1) {
     pages.push(i);
   }
 
@@ -19,10 +19,10 @@ export default function Pagination(props: Props) {
     <div className="Pagination">
       {pages.map((page, idx) => (
         <Link
-          to={idx === 0 ? '/' : `page/${page}`}
-          key={idx}
+          to={idx === 0 ? "/" : `page/${page}`}
+          key={page}
           onClick={() => setCurrentPage(page)}
-          className={page === currentPage ? 'Pagination__link active' : 'Pagination__link'}
+          className={page === currentPage ? "Pagination__link active" : "Pagination__link"}
         >
           {page}
         </Link>
