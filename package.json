@@ -11,8 +11,8 @@
     "lint:fix": "eslint --ignore-path .gitignore --fix .",
     "prettier": "prettier --ignore-path .gitignore --list-different \"**/*.{ts,tsx,css,scss}\"",
     "prettier:write": "prettier --ignore-path .gitignore --write \"**/*.{ts,tsx,css,scss}\"",
-    "coverage": "test --coverage --watchAll --collectCoverageFrom='src/**/*.{ts,tsx}' --collectCoverageFrom='!src/**/*.{constants, models, routs}.{ts,tsx}'",
     "test": "vitest",
+    "coverage": "vitest run --coverage",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -33,6 +33,7 @@
     "@typescript-eslint/eslint-plugin": "^5.59.1",
     "@typescript-eslint/parser": "^5.59.1",
     "@vitejs/plugin-react": "^2.2.0",
+    "@vitest/coverage-c8": "^0.30.1",
     "eslint": "^8.2.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.0.0",
@@ -54,7 +55,7 @@
     "vitest": "^0.30.1"
   },
   "lint-staged": {
-    "*{ts,tsx,css,scss}": "prettier --ignore-path .gitignore --list-different \"**/*.{ts,tsx,css,scss}\"",
-    "*.{ts,tsx}": "eslint --ignore-path .gitignore ."
+    "*.{ts,tsx,css,scss}": ["prettier --ignore-path .gitignore --write \"**/*.{ts,tsx,css,scss}\""],
+    "*.{ts,tsx}": ["eslint --ignore-path .gitignore ."]
   }
 }
