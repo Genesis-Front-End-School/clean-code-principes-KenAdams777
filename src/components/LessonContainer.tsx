@@ -72,7 +72,7 @@ function LessonContainer(props: Props) {
       </div>
 
       {openModal ? (
-        <Modal isOpen={openModal} handleClose={handleCloseModal}>
+        <Modal handleClose={handleCloseModal}>
           {lessonDesc}
 
           <ReactPlayerContainer

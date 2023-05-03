@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import axios from "axios";
-import { getToken } from "../../helpers/tokenHandler";
+import { getToken, isToken } from "../../helpers/tokenHandler";
 import { CourseDetails } from "../../models/courseDetailsModel";
 import { apiRouts } from "../../routes/apiRouts";
 
@@ -19,15 +19,21 @@ const initialState: InitialState = {
 export const fetchCourseDetails = createAsyncThunk(
   "courseDetails/fetchCourseDetails",
   async (id: string, { signal }): Promise<CourseDetails> => {
-    const { token } = await getToken(apiRouts.GET_TOKEN_URL, signal);
-    const response = await axios.get<CourseDetails>(`${apiRouts.GET_COURSES_PREVIEW_URL}/${id}`, {
-      signal,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const data = await getToken(apiRouts.GET_TOKEN_URL, signal);
 
-    return response.data;
+    if (isToken(data)) {
+      const { token } = data;
+      const response = await axios.get<CourseDetails>(`${apiRouts.GET_COURSES_PREVIEW_URL}/${id}`, {
+        signal,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return response.data;
+    }
+
+    throw new Error("Failure to get details about this Course");
   },
 );
 
@@ -55,7 +61,7 @@ const courseDetailsSlice = createSlice({
         return;
       }
       state.isLoading = false;
-      state.error = action.error.message || "Something went wrong. Try again later";
+      state.error = action.error.message ?? "Something went wrong. Try again later";
     });
   },
 });
