@@ -64,6 +64,7 @@ export default function ReactPlayerContainer(props: IProps) {
           file: {
             attributes: {
               preload: "none",
+              role: "video",
             },
           },
         }}

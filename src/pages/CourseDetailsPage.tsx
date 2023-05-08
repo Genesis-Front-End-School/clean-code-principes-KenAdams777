@@ -49,9 +49,9 @@ export default function CourseDetailsPage() {
 
   return (
     <main className="CourseDetailsPage__container">
-      {error ? <ErrorContainer error={error} /> : null}
-
       {isLoading ? <LoaderFallback /> : null}
+
+      {error ? <ErrorContainer error={error} /> : null}
 
       {!isLoading && courseDetails ? <CourseContainer course={courseDetails} /> : null}
     </main>

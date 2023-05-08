@@ -40,8 +40,13 @@ export default function CourseCard(props: Props) {
   }, []);
 
   return (
-    <div className="CourseCard__card">
-      <Link to={`courses/${course.id}`} className="CourseCard__link">
+    <article className="CourseCard__card">
+      <Link
+        to={`courses/${course.id}`}
+        className="CourseCard__link"
+        aria-label="Link to the course page"
+        tabIndex={0}
+      >
         <div
           className="CourseCard__media media"
           onMouseEnter={mouseEnterHandler}
@@ -87,6 +92,6 @@ export default function CourseCard(props: Props) {
           </div>
         </div>
       </Link>
-    </div>
+    </article>
   );
 }

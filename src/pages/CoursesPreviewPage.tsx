@@ -36,8 +36,11 @@ export default function CoursesPreviewPage() {
   return (
     <main className="CoursesPreviewPage__container">
       <h1 className="CoursesPreviewPage__title">Courses</h1>
+
       {isLoading ? <LoaderFallback /> : null}
+
       {error ? <ErrorContainer error={error} /> : null}
+
       <CoursesList courses={courses} />
     </main>
   );

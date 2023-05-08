@@ -5,6 +5,7 @@
 
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import path from "path";
 
 export default defineConfig({
   plugins: [react()],
@@ -12,6 +13,12 @@ export default defineConfig({
     globals: true,
     environment: "jsdom",
     setupFiles: ["./tests/setupTests.ts"],
+    alias: [
+      {
+        find: "react-redux/es/exports",
+        replacement: path.resolve(__dirname, "./node_modules/react-redux/lib/exports"),
+      },
+    ],
     coverage: {
       provider: "c8",
       reportsDirectory: "./tests/_coverage",

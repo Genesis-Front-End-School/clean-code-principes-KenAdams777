@@ -7,9 +7,10 @@ import { Lesson } from "../models/courseDetailsModel";
 import { imageErrorHandler } from "../helpers/imageErroHandler";
 import { useAppDispatch } from "../redux/store";
 import { IVideoProgress, updateVideosProgressStorage } from "../redux/slices/videosProgressSlice";
+import { Prettify } from "../helpers/utilityTypes";
 
 type Props = {
-  lesson: Lesson;
+  lesson: Prettify<Lesson>;
   isFirstLesson?: boolean;
   currentVideoProgress: number;
 };
