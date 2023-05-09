@@ -32,7 +32,7 @@ export const fetchCourseDetails = createAsyncThunk(
 );
 
 const courseDetailsSlice = createSlice({
-  name: 'courses',
+  name: 'courseDetails',
   initialState,
   reducers: {
     setCourseDetails: (state, action: PayloadAction<CourseDetails>) => {
