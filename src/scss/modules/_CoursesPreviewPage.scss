@@ -1,0 +1,9 @@
+.CoursesPreviewPage {
+  &__header {
+    display: flex;
+    gap: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+  }
+}

@@ -1,6 +1,7 @@
 import CoursesList from '../components/CoursesList';
 import ErrorContainer from '../components/ErrorContainer';
 import LoaderFallback from '../components/LoaderFallback';
+import ThemeButton from '../components/ThemeButton';
 import { Course } from '../models/coursesPreviewModel';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { useEffect } from 'react';
@@ -35,7 +36,10 @@ export default function CoursesPreviewPage() {
 
   return (
     <main className="CoursesPreviewPage__container">
-      <h1 className="CoursesPreviewPage__title">Courses</h1>
+      <div className="CoursesPreviewPage__header">
+        <h1 className="CoursesPreviewPage__title">Courses</h1>
+        <ThemeButton />
+      </div>
       {isLoading ? <LoaderFallback /> : null}
       {error ? <ErrorContainer error={error} /> : null}
       <CoursesList courses={courses} />
