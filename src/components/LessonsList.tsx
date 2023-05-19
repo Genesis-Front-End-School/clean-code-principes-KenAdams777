@@ -1,6 +1,6 @@
-import LessonContainer from './LessonContainer';
-import { Lesson } from '../models/courseDetailsModel';
-import { useAppSelector } from '../redux/store';
+import LessonContainer from "./LessonContainer";
+import { Lesson } from "../models/courseDetailsModel";
+import { useAppSelector } from "../redux/store";
 
 type Props = {
   lessons: Lesson[];

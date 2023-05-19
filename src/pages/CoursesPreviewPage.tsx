@@ -1,35 +1,36 @@
-import CoursesList from '../components/CoursesList';
-import ErrorContainer from '../components/ErrorContainer';
-import LoaderFallback from '../components/LoaderFallback';
-import ThemeButton from '../components/ThemeButton';
-import { Course } from '../models/coursesPreviewModel';
-import { useLocalStorage } from '../hooks/useLocalStorage';
-import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../redux/store';
-import { fetchCoursesPreview, setCourses } from '../redux/slices/coursesPreviewSlice';
-import { TIME_TO_LIVE } from '../constants/TTL';
+import { useEffect } from "react";
+import CoursesList from "../components/CoursesList";
+import ErrorContainer from "../components/ErrorContainer";
+import LoaderFallback from "../components/LoaderFallback";
+import ThemeButton from "../components/ThemeButton";
+import { Course } from "../models/coursesPreviewModel";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useAppDispatch, useAppSelector } from "../redux/store";
+import { fetchCoursesPreview, setCourses } from "../redux/slices/coursesPreviewSlice";
+import { TIME_TO_LIVE } from "../constants/TTL";
 
 export default function CoursesPreviewPage() {
   const dispatch = useAppDispatch();
-  const { isLoading, error, courses } = useAppSelector((state) => state.coursesPreview);
+  const { isLoading, error, data: courses } = useAppSelector((state) => state.coursesPreview);
   const [coursesLS, setCoursesLS] = useLocalStorage<Course[]>(
-    'courses',
+    "courses",
     [],
-    TIME_TO_LIVE.coursesPreview
+    TIME_TO_LIVE.coursesPreview,
   );
 
   useEffect(() => {
     if (coursesLS?.length) {
       // Setting up the courses from Local Storage to Redux store on page initial load otherwise sending request to get the courses from server
       dispatch(setCourses(coursesLS));
-      return;
+      return undefined;
     }
     const promise = dispatch(fetchCoursesPreview());
+
     return () => promise.abort();
   }, []);
 
   useEffect(() => {
-    if (courses.length) {
+    if (courses) {
       setCoursesLS(courses);
     }
   }, [courses]);
@@ -41,8 +42,10 @@ export default function CoursesPreviewPage() {
         <ThemeButton />
       </div>
       {isLoading ? <LoaderFallback /> : null}
+
       {error ? <ErrorContainer error={error} /> : null}
-      <CoursesList courses={courses} />
+
+      {courses ? <CoursesList courses={courses} /> : null}
     </main>
   );
 }

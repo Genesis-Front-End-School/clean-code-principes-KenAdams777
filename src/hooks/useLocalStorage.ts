@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
 export function useLocalStorage<T>(key: string, initialValue: T | (() => T), timeToLive: number) {
   const [value, setValue] = useState<T>(() => {
@@ -13,11 +13,10 @@ export function useLocalStorage<T>(key: string, initialValue: T | (() => T), tim
       return item.value;
     }
 
-    if (typeof initialValue === 'function') {
+    if (typeof initialValue === "function") {
       return (initialValue as () => T)();
-    } else {
-      return initialValue;
     }
+    return initialValue;
   });
 
   useEffect(() => {

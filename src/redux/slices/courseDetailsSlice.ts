@@ -1,42 +1,45 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { getToken } from '../../helpers/tokenHandler';
-import { CourseDetails } from '../../models/courseDetailsModel';
-import { apiRouts } from '../../routs/apiRouts';
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import axios from "axios";
+import { getToken, isToken } from "../../helpers/tokenHandler";
+import { CourseDetails } from "../../models/courseDetailsModel";
+import { apiRouts } from "../../routes/apiRouts";
+import { State } from "../../models/reduxModels";
 
-type InitialState = {
-  isLoading: boolean;
-  courseDetails: CourseDetails | null;
-  error: string | null;
-};
+type InitialState = State<CourseDetails>;
 
 const initialState: InitialState = {
   isLoading: false,
-  courseDetails: null,
+  data: null,
   error: null,
 };
 
 export const fetchCourseDetails = createAsyncThunk(
-  'courseDetails/fetchCourseDetails',
+  "courseDetails/fetchCourseDetails",
   async (id: string, { signal }): Promise<CourseDetails> => {
-    const { token } = await getToken(apiRouts.GET_TOKEN_URL, signal);
-    const response = await axios.get<CourseDetails>(`${apiRouts.GET_COURSES_PREVIEW_URL}/${id}`, {
-      signal,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const data = await getToken(apiRouts.GET_TOKEN_URL, signal);
 
-    return response.data;
-  }
+    if (isToken(data)) {
+      const { token } = data;
+      const response = await axios.get<CourseDetails>(`${apiRouts.GET_COURSES_PREVIEW_URL}/${id}`, {
+        signal,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return response.data;
+    }
+
+    throw new Error("Failure to get details about this Course");
+  },
 );
 
 const courseDetailsSlice = createSlice({
-  name: 'courseDetails',
+  name: "courseDetails",
   initialState,
   reducers: {
     setCourseDetails: (state, action: PayloadAction<CourseDetails>) => {
-      state.courseDetails = action.payload;
+      state.data = action.payload;
     },
   },
 
@@ -45,17 +48,17 @@ const courseDetailsSlice = createSlice({
       state.error = null;
       state.isLoading = true;
     });
-    builder.addCase(fetchCourseDetails.fulfilled, (state, action: PayloadAction<CourseDetails>) => {
+    builder.addCase(fetchCourseDetails.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.courseDetails = action.payload;
+      state.data = action.payload;
     });
     builder.addCase(fetchCourseDetails.rejected, (state, action) => {
-      if (action.error.name === 'AbortError') {
-        console.warn('Abort fetch course details request: ', action.error);
+      if (action.error.name === "AbortError") {
+        console.warn("Abort fetch course details request: ", action.error);
         return;
       }
       state.isLoading = false;
-      state.error = action.error.message || 'Something went wrong. Try again later';
+      state.error = action.error.message ?? "Something went wrong. Try again later";
     });
   },
 });

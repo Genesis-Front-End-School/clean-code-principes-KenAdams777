@@ -1,7 +1,7 @@
-import CourseCard from './CourseCard';
-import Pagination from './Pagination';
-import { Course } from '../models/coursesPreviewModel';
-import { usePagination } from '../hooks/usePagination';
+import CourseCard from "./CourseCard";
+import Pagination from "./Pagination";
+import { Course } from "../models/coursesPreviewModel";
+import { usePagination } from "../hooks/usePagination";
 
 type Props = {
   courses: Course[];
@@ -14,7 +14,7 @@ export default function CoursesList(props: Props) {
   const { coursesPerPage, currentPage, setCurrentPage, currentCourses } = usePagination(
     courses,
     PER_PAGE,
-    ACTIVE_PAGE
+    ACTIVE_PAGE,
   );
 
   return (

@@ -28,20 +28,20 @@ $box-shadow-card: 0px 1px 5px rgba(0, 0, 0, 0.2), 0px 3px 4px rgba(0, 0, 0, 0.12
 }
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 0.875rem;
   color: $color-black-primary;
   @include background-light;
 }
 
 body.dark {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 0.875rem;
   color: $color-grey-light;
   @include background-dark;
 }
 
-[class*='__container'] {
+[class*="__container"] {
   max-width: 90rem;
   padding-left: 0.625rem;
   padding-right: 0.625rem;

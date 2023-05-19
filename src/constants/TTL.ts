@@ -3,5 +3,5 @@ export const TIME_TO_LIVE = {
   activePageNumber: 3600,
   currentCourse: 3600,
   videosProgress: 178800 /** 72 hours */,
-  darkTheme: Math.pow(10, 10),
+  darkTheme: 10 ** 10,
 } as const;
