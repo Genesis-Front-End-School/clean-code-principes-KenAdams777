@@ -6,7 +6,8 @@ import { Lesson } from '../models/courseDetailsModel';
 import { imageErrorHandler } from '../helpers/imageErroHandler';
 import { memo, useCallback, useRef, useState } from 'react';
 import { useAppDispatch } from '../redux/store';
-import { IVideoProgress, updateVideosProgressStorage } from '../redux/slices/videosProgressSlice';
+import { VideoProgress } from '../models/reduxModels';
+import { updateVideosProgressStorage } from '../redux/slices/videosProgressSlice';
 
 type Props = {
   lesson: Lesson;
@@ -32,7 +33,7 @@ function LessonContainer(props: Props) {
   }, []);
 
   const handleCloseModal = useCallback(() => {
-    const newVideoProgress: IVideoProgress = {
+    const newVideoProgress: VideoProgress = {
       lessonId: lesson.id,
       startPoint: playedSeconds.current,
     };

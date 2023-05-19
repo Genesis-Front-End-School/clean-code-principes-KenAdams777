@@ -10,7 +10,7 @@ import { TIME_TO_LIVE } from '../constants/TTL';
 
 export default function CoursesPreviewPage() {
   const dispatch = useAppDispatch();
-  const { isLoading, error, courses } = useAppSelector((state) => state.coursesPreview);
+  const { isLoading, error, data: courses } = useAppSelector((state) => state.coursesPreview);
   const [coursesLS, setCoursesLS] = useLocalStorage<Course[]>(
     'courses',
     [],
@@ -24,11 +24,12 @@ export default function CoursesPreviewPage() {
       return;
     }
     const promise = dispatch(fetchCoursesPreview());
+
     return () => promise.abort();
   }, []);
 
   useEffect(() => {
-    if (courses.length) {
+    if (courses) {
       setCoursesLS(courses);
     }
   }, [courses]);
@@ -38,7 +39,7 @@ export default function CoursesPreviewPage() {
       <h1 className="CoursesPreviewPage__title">Courses</h1>
       {isLoading ? <LoaderFallback /> : null}
       {error ? <ErrorContainer error={error} /> : null}
-      <CoursesList courses={courses} />
+      {courses ? <CoursesList courses={courses} /> : null}
     </main>
   );
 }
