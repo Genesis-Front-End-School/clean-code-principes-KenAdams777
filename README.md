@@ -2,6 +2,11 @@
 
 # Online Courses App
 
+## The project architecture:
+Excalidraw: [Project Architecture Scheme](https://excalidraw.com/#json=nP4zyboUZKs2zEQNp-NHV,oNfC-wutevudAE277rnBLQ)
+
+![Project Architecture Scheme](src/assets/project-architecture.png)
+
 ## Application for study
 
 ### The application consists of two pages:

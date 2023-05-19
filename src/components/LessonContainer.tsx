@@ -33,7 +33,7 @@ function LessonContainer(props: Props) {
   }, []);
 
   const handleCloseModal = useCallback(() => {
-    const newVideoProgress: IVideoProgress = {
+    const newVideoProgress: VideoProgress = {
       lessonId: lesson.id,
       startPoint: playedSeconds.current,
     };

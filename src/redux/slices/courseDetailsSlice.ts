@@ -4,21 +4,18 @@ import { getToken, isToken } from "../../helpers/tokenHandler";
 import { CourseDetails } from "../../models/courseDetailsModel";
 import { apiRouts } from "../../routes/apiRouts";
 
-type InitialState = {
-  isLoading: boolean;
-  courseDetails: CourseDetails | null;
-  error: string | null;
-};
+type InitialState = State<CourseDetails>;
 
 const initialState: InitialState = {
   isLoading: false,
-  courseDetails: null,
+  data: null,
   error: null,
 };
 
 export const fetchCourseDetails = createAsyncThunk(
   "courseDetails/fetchCourseDetails",
   async (id: string, { signal }): Promise<CourseDetails> => {
+    
     const data = await getToken(apiRouts.GET_TOKEN_URL, signal);
 
     if (isToken(data)) {
@@ -38,11 +35,11 @@ export const fetchCourseDetails = createAsyncThunk(
 );
 
 const courseDetailsSlice = createSlice({
-  name: "courses",
+  name: 'courseDetails',
   initialState,
   reducers: {
     setCourseDetails: (state, action: PayloadAction<CourseDetails>) => {
-      state.courseDetails = action.payload;
+      state.data = action.payload;
     },
   },
 
@@ -51,9 +48,9 @@ const courseDetailsSlice = createSlice({
       state.error = null;
       state.isLoading = true;
     });
-    builder.addCase(fetchCourseDetails.fulfilled, (state, action: PayloadAction<CourseDetails>) => {
+    builder.addCase(fetchCourseDetails.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.courseDetails = action.payload;
+      state.data = action.payload;
     });
     builder.addCase(fetchCourseDetails.rejected, (state, action) => {
       if (action.error.name === "AbortError") {

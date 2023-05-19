@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import OverlayFallback from "./OverlayFallback";
 import { imageErrorHandler } from "../helpers/imageErroHandler";
 
-interface IProps extends ReactPlayerProps {
+interface Props extends ReactPlayerProps {
   videoUrl: string;
   videoStartPoint?: number;
   previewImageUrl?: string;
@@ -16,13 +16,15 @@ type HlsErrorData = {
   buffer: number;
 };
 
-export default function ReactPlayerContainer(props: IProps) {
+export default function ReactPlayerContainer(props: Props) {
   const { videoUrl, videoStartPoint, previewImageUrl, ...restProps } = props;
   const [fallbackState, setFallbackState] = useState(false);
   const playerRef = useRef<ReactPlayer>(null);
 
   useEffect(() => {
-    if (!videoStartPoint) return;
+    if (!videoStartPoint) {
+      return;
+    }
     if (playerRef.current) {
       playerRef.current.seekTo(videoStartPoint, "seconds");
     }
@@ -45,6 +47,7 @@ export default function ReactPlayerContainer(props: IProps) {
       {fallbackState ? (
         <OverlayFallback isActive={fallbackState} content="Failure to load video..." />
       ) : null}
+
       <ReactPlayer
         ref={playerRef}
         className="ReactPlayerContainer__react-player"

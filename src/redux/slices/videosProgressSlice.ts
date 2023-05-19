@@ -1,9 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-export interface IVideoProgress {
-  lessonId: string;
-  startPoint: number;
-}
+import { VideoProgress } from "../../models/reduxModels";
 
 type InitialState = {
   videosProgresStorage: Record<string, number> | null;
@@ -21,8 +17,10 @@ const videosProgressSlice = createSlice({
       state.videosProgresStorage = action.payload;
     },
 
-    updateVideosProgressStorage: (state, action: PayloadAction<IVideoProgress>) => {
-      if (state.videosProgresStorage == null) state.videosProgresStorage = {};
+    updateVideosProgressStorage: (state, action: PayloadAction<VideoProgress>) => {
+      if (!state.videosProgresStorage) {
+        state.videosProgresStorage = {};
+      }
       state.videosProgresStorage[action.payload.lessonId] = action.payload.startPoint;
     },
   },
