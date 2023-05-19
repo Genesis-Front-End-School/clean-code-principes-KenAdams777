@@ -6,8 +6,9 @@ import Modal from "./Modal";
 import { Lesson } from "../models/courseDetailsModel";
 import { imageErrorHandler } from "../helpers/imageErroHandler";
 import { useAppDispatch } from "../redux/store";
-import { IVideoProgress, updateVideosProgressStorage } from "../redux/slices/videosProgressSlice";
+import { updateVideosProgressStorage } from "../redux/slices/videosProgressSlice";
 import { Prettify } from "../helpers/utilityTypes";
+import { VideoProgress } from "../models/reduxModels";
 
 type Props = {
   lesson: Prettify<Lesson>;

@@ -15,14 +15,14 @@
   ],
   "overrides": [
     {
-      "files":[
+      "files": [
         "src/redux/**/*.ts"
       ],
-      "rules":{
-        "no-param-reassign":[
+      "rules": {
+        "no-param-reassign": [
           "error",
           {
-            "props":false
+            "props": false
           }
         ]
       }
@@ -47,7 +47,7 @@
     ],
     "linebreak-style": [
       "error",
-      "unix"
+      "windows"
     ],
     "quotes": [
       "error",
@@ -61,14 +61,30 @@
       "error",
       "double"
     ],
-    "react/jsx-uses-react": ["off"],
-    "react/react-in-jsx-scope": ["off"],
-    "react/jsx-props-no-spreading": ["warn"],
-    "react-hooks/exhaustive-deps": ["warn"],
-    "react/require-default-props": ["warn"],
-    "import/prefer-default-export": ["off"],
-    "react/jsx-no-useless-fragment": ["warn"],
-    "import/no-extraneous-dependencies": ["warn"],
+    "react/jsx-uses-react": [
+      "off"
+    ],
+    "react/react-in-jsx-scope": [
+      "off"
+    ],
+    "react/jsx-props-no-spreading": [
+      "warn"
+    ],
+    "react-hooks/exhaustive-deps": [
+      "warn"
+    ],
+    "react/require-default-props": [
+      "warn"
+    ],
+    "import/prefer-default-export": [
+      "off"
+    ],
+    "react/jsx-no-useless-fragment": [
+      "warn"
+    ],
+    "import/no-extraneous-dependencies": [
+      "warn"
+    ],
     "no-shadow": "off"
   }
 }

@@ -3,6 +3,7 @@ import axios from "axios";
 import { getToken, isToken } from "../../helpers/tokenHandler";
 import { Course, CoursesPreview } from "../../models/coursesPreviewModel";
 import { apiRouts } from "../../routes/apiRouts";
+import { State } from "../../models/reduxModels";
 
 type InitialState = State<Course[]>;
 
@@ -15,7 +16,6 @@ const initialState: InitialState = {
 export const fetchCoursesPreview = createAsyncThunk(
   "coursesPreview/fetchCoursesPreview",
   async (_, { signal }): Promise<CoursesPreview> => {
-    
     const data = await getToken(apiRouts.GET_TOKEN_URL, signal);
 
     if (isToken(data)) {
@@ -52,7 +52,7 @@ const coursesPreviewSlice = createSlice({
     builder.addCase(fetchCoursesPreview.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data = [...action.payload.courses].sort((a, b) =>
-        Date.parse(a.launchDate) < Date.parse(b.launchDate) ? 1 : -1
+        Date.parse(a.launchDate) < Date.parse(b.launchDate) ? 1 : -1,
       );
     });
 

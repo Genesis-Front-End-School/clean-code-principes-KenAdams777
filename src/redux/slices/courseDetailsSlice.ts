@@ -3,6 +3,7 @@ import axios from "axios";
 import { getToken, isToken } from "../../helpers/tokenHandler";
 import { CourseDetails } from "../../models/courseDetailsModel";
 import { apiRouts } from "../../routes/apiRouts";
+import { State } from "../../models/reduxModels";
 
 type InitialState = State<CourseDetails>;
 
@@ -15,7 +16,6 @@ const initialState: InitialState = {
 export const fetchCourseDetails = createAsyncThunk(
   "courseDetails/fetchCourseDetails",
   async (id: string, { signal }): Promise<CourseDetails> => {
-    
     const data = await getToken(apiRouts.GET_TOKEN_URL, signal);
 
     if (isToken(data)) {
@@ -35,7 +35,7 @@ export const fetchCourseDetails = createAsyncThunk(
 );
 
 const courseDetailsSlice = createSlice({
-  name: 'courseDetails',
+  name: "courseDetails",
   initialState,
   reducers: {
     setCourseDetails: (state, action: PayloadAction<CourseDetails>) => {
