@@ -1,13 +1,20 @@
-import OverlayFallback from './OverlayFallback';
-import ReactPlayer, { ReactPlayerProps } from 'react-player';
-import { useEffect, useRef, useState } from 'react';
-import { imageErrorHandler } from '../helpers/imageErroHandler';
+import ReactPlayer, { ReactPlayerProps } from "react-player";
+import { useCallback, useEffect, useRef, useState } from "react";
+import OverlayFallback from "./OverlayFallback";
+import { imageErrorHandler } from "../helpers/imageErroHandler";
 
 interface Props extends ReactPlayerProps {
   videoUrl: string;
   videoStartPoint?: number;
   previewImageUrl?: string;
 }
+
+type HlsErrorData = {
+  type: string;
+  details: string;
+  fatal: boolean;
+  buffer: number;
+};
 
 export default function ReactPlayerContainer(props: Props) {
   const { videoUrl, videoStartPoint, previewImageUrl, ...restProps } = props;
@@ -19,9 +26,21 @@ export default function ReactPlayerContainer(props: Props) {
       return;
     }
     if (playerRef.current) {
-      playerRef.current.seekTo(videoStartPoint, 'seconds');
+      playerRef.current.seekTo(videoStartPoint, "seconds");
     }
   }, [videoStartPoint]);
+
+  const playerErrorHandler = useCallback(
+    (error: string, data: HlsErrorData, hlsInstance: any, hlsGlobal: any) => {
+      if (!data.fatal || fallbackState) {
+        return;
+      }
+
+      setFallbackState(true);
+      console.warn("Failure to load video: ", error, data, hlsInstance, hlsGlobal);
+    },
+    [],
+  );
 
   return (
     <div className="ReactPlayerContainer">
@@ -36,10 +55,7 @@ export default function ReactPlayerContainer(props: Props) {
         width="100%"
         height="100%"
         pip
-        onError={(error) => {
-          setFallbackState(true);
-          console.warn('Failure to load video: ', error);
-        }}
+        onError={playerErrorHandler}
         light={
           previewImageUrl ? (
             <img src={previewImageUrl} alt="Thumbnail" onError={imageErrorHandler} />
@@ -50,7 +66,8 @@ export default function ReactPlayerContainer(props: Props) {
         config={{
           file: {
             attributes: {
-              preload: 'none',
+              preload: "none",
+              role: "video",
             },
           },
         }}

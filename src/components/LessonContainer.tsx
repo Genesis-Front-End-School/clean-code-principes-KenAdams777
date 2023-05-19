@@ -1,16 +1,16 @@
-import ReactPlayerContainer from './ReactPlayerContainer';
-import PlayIcon from './PlayIcon';
-import OverlayFallback from './OverlayFallback';
-import Modal from './Modal';
-import { Lesson } from '../models/courseDetailsModel';
-import { imageErrorHandler } from '../helpers/imageErroHandler';
-import { memo, useCallback, useRef, useState } from 'react';
-import { useAppDispatch } from '../redux/store';
-import { VideoProgress } from '../models/reduxModels';
-import { updateVideosProgressStorage } from '../redux/slices/videosProgressSlice';
+import { memo, useCallback, useRef, useState } from "react";
+import ReactPlayerContainer from "./ReactPlayerContainer";
+import PlayIcon from "./PlayIcon";
+import OverlayFallback from "./OverlayFallback";
+import Modal from "./Modal";
+import { Lesson } from "../models/courseDetailsModel";
+import { imageErrorHandler } from "../helpers/imageErroHandler";
+import { useAppDispatch } from "../redux/store";
+import { IVideoProgress, updateVideosProgressStorage } from "../redux/slices/videosProgressSlice";
+import { Prettify } from "../helpers/utilityTypes";
 
 type Props = {
-  lesson: Lesson;
+  lesson: Prettify<Lesson>;
   isFirstLesson?: boolean;
   currentVideoProgress: number;
 };
@@ -23,7 +23,7 @@ function LessonContainer(props: Props) {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const playedSeconds = useRef<number>(0);
   const previewImageLink = `${lesson.previewImageLink}/lesson-${lesson.order}.webp`;
-  const isLocked = lesson.status === 'locked';
+  const isLocked = lesson.status === "locked";
 
   const handleOpenModal = useCallback(() => {
     if (isLocked || !lesson.link) {
@@ -52,15 +52,18 @@ function LessonContainer(props: Props) {
   return (
     <>
       <div
-        className={isFirstLesson ? 'LessonContainer first-lesson' : 'LessonContainer'}
+        role="button"
+        tabIndex={0}
+        className={isFirstLesson ? "LessonContainer first-lesson" : "LessonContainer"}
         onClick={handleOpenModal}
+        onKeyDown={() => {}}
       >
         <div className="LessonContainer__image-wrapper">
           <OverlayFallback isActive={isLocked} content="Locked" />
           <img
             src={previewImageLink}
             className="LessonContainer__image"
-            alt="Image"
+            alt="preview"
             onError={imageErrorHandler}
           />
           {lesson.link ? <PlayIcon /> : null}
@@ -70,7 +73,7 @@ function LessonContainer(props: Props) {
       </div>
 
       {openModal ? (
-        <Modal isOpen={openModal} handleClose={handleCloseModal}>
+        <Modal handleClose={handleCloseModal}>
           {lessonDesc}
 
           <ReactPlayerContainer
@@ -93,7 +96,7 @@ function LessonContainer(props: Props) {
 }
 
 function areEqual(prevProps: Props, nextProps: Props): boolean {
-  return prevProps.currentVideoProgress !== nextProps.currentVideoProgress ? false : true;
+  return prevProps.currentVideoProgress === nextProps.currentVideoProgress;
 }
 
 export default memo(LessonContainer, areEqual);

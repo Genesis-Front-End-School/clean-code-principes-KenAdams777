@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { VideoProgress } from '../../models/reduxModels';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { VideoProgress } from "../../models/reduxModels";
 
 type InitialState = {
   videosProgresStorage: Record<string, number> | null;
@@ -10,7 +10,7 @@ const initialState: InitialState = {
 };
 
 const videosProgressSlice = createSlice({
-  name: 'videosProgress',
+  name: "videosProgress",
   initialState,
   reducers: {
     setVideosProgressStorage: (state, action: PayloadAction<Record<string, number>>) => {

@@ -1,9 +1,9 @@
 export default function LoaderFallback() {
   return (
-    <div className="LoaderFallback">
-      <div></div>
-      <div></div>
-      <div></div>
+    <div role="status" aria-label="Loading" className="LoaderFallback">
+      <div />
+      <div />
+      <div />
     </div>
   );
 }
