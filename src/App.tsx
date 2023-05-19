@@ -1,4 +1,5 @@
-import ScrollToTop from './components/ScrollToTop';
+// import ScrollToTop from './components/ScrollToTop';
+import { ScrollToTop } from 'react-components-ts';
 import CourseDetailsPage from './pages/CourseDetailsPage';
 import CoursesPreviewPage from './pages/CoursesPreviewPage';
 import { DOMRouts } from './routs/domRouts';

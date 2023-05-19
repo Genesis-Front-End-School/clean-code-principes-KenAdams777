@@ -1,4 +1,5 @@
-import LoaderFallback from '../components/LoaderFallback';
+// import LoaderFallback from '../components/LoaderFallback';
+import { LoaderFallback } from 'react-components-ts';
 import ErrorContainer from '../components/ErrorContainer';
 import CourseContainer from '../components/CourseContainer';
 import { useParams } from 'react-router-dom';
