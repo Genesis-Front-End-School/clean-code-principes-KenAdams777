@@ -1,6 +1,7 @@
 import CoursesList from '../components/CoursesList';
 import ErrorContainer from '../components/ErrorContainer';
-import LoaderFallback from '../components/LoaderFallback';
+// import LoaderFallback from '../components/LoaderFallback';
+import { LoaderFallback } from 'react-components-ts';
 import { Course } from '../models/coursesPreviewModel';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { useEffect } from 'react';

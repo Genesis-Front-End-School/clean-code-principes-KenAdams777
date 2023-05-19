@@ -1,7 +1,8 @@
 import ReactPlayerContainer from './ReactPlayerContainer';
 import PlayIcon from './PlayIcon';
 import OverlayFallback from './OverlayFallback';
-import Modal from './Modal';
+// import Modal from './Modal';
+import { Modal } from 'react-components-ts';
 import { Lesson } from '../models/courseDetailsModel';
 import { imageErrorHandler } from '../helpers/imageErroHandler';
 import { memo, useCallback, useRef, useState } from 'react';
