@@ -12,6 +12,7 @@
     "prettier": "prettier --ignore-path .gitignore --list-different \"**/*.{ts,tsx,css,scss}\"",
     "prettier:write": "prettier --ignore-path .gitignore --write \"**/*.{ts,tsx,css,scss}\"",
     "test": "vitest",
+    "test:no-watch": "vitest --watch=false",
     "coverage": "vitest run --coverage",
     "prepare": "husky install"
   },
